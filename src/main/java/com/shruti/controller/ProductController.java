@@ -4,6 +4,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -31,9 +32,13 @@ public class ProductController {
 	//Method to store product data
 	
 	@PostMapping("/saveProduct")
-	public String saveProductData(Model model, ProductB pb) {
+	public String saveProductData( ProductB pb,BindingResult res,Model model) {
 		
+		if(res.hasErrors()) {
+			return "index";
+		}
 		
+		else {
 		ProductE pe = new ProductE();
 		BeanUtils.copyProperties(pb, pe);
 		
@@ -44,7 +49,7 @@ public class ProductController {
 		model.addAttribute("msg","Product Details Saved");
 		
 		return "index";
-		
+		}
 	}
 	
 	

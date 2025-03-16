@@ -12,17 +12,20 @@
         <form th:action="@{/saveProduct}" th:object="${product}" method="post">
             <div class="mb-3">
                 <label for="productName" class="form-label">Product Name</label>
-                <input type="text" id="productName" class="form-control" th:field="*{pname}" required>
+                <input type="text" id="productName" class="form-control" th:field="*{pname}"  required>
+    <span th:if="${#fields.hasErrors('pname')}" th:errors="*{pname}" style="color: red;"></span>				
             </div>
             
             <div class="mb-3">
                 <label for="price" class="form-label">Price</label>
-                <input type="number" step="0.01" id="price" class="form-control" th:field="*{pprice}" required>
+                <input type="number" step="0.01" id="price" class="form-control" th:field="*{pprice}" min="1" required>
+				<span th:if="${#fields.hasErrors('pprice')}" th:errors="*{pprice}" style="color:red"></span>
             </div>
             
             <div class="mb-3">
                 <label for="quantity" class="form-label">Quantity Available</label>
                 <input type="number" id="quantity" class="form-control" th:field="*{pquantity}" required>
+				<span th:if="${#fields.hasErrors('pquantity')}" th:errors="*{pquantity}" style="color:red"></span>
             </div>
             
             <button type="submit" class="btn btn-primary">Submit</button>
